@@ -25,7 +25,7 @@ Push image:
 
 Scan the image:
   image:
-    name: $DOCKER_REPO
+    name: registry.access.redhat.com/advanced-cluster-security/rhacs-roxctl-rhel8:3.74.1-1
     entrypoint: ["/bin/sh", "-c"] # override image entrypoint as default is /usr/bin/roxctl
   stage: scan
   script:
