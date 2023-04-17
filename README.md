@@ -8,3 +8,4 @@
 - ROX_API_TOKEN
 - STACKROX_CENTRAL_HOST
 - DOCKER_REPO (private or public)
+  - Replace `repo.example.com/namespace`
