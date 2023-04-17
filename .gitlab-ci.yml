@@ -1,17 +1,17 @@
 stages:
   - build
-  - push
+  - tag-push
   - scan
  
-Build the image:
+📦Build the image:
   stage: build
   script:
     - docker build --tag="escape:1.0" .
   only:
     - shell-scan
 
-Push image:
-  stage: push
+🔖Tag & Push image:
+  stage: tag-push
   script:
     - docker login -u $USER -p $TOKEN docker.io
     - docker tag escape:1.0 repo.example.com/namespace/escape:1.0
@@ -22,7 +22,7 @@ Push image:
     - shell-scan
   allow_failure: true
 
-Scan the image:
+🔐Scan the image:
   stage: scan
   script:
     - 'curl -k -H "Authorization: Bearer $ROX_API_TOKEN" "$STACKROX_CENTRAL_HOST":443/api/cli/download/roxctl-linux -o roxctl && chmod +x ./roxctl'
