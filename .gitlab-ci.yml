@@ -15,8 +15,10 @@ Build the image:
 Push image:
   stage: push
   script:
-    - "docker tag escape:1.0 $DOCKER_REPO/myrepo/escape:1.0"
-    - "docker push $DOCKER_REPO/myrepo/escape:1.0"
+    - docker login -u $USER -p $TOKEN docker.io
+    - docker tag escape:1.0 repo.example.com/namespace/escape:1.0
+    - docker push repo.example.com/namespace/escape:1.0
+
   tags:
     - runner-shell
   only:
@@ -31,7 +33,7 @@ Scan the image:
   script:
     - ROX_API_TOKEN=$ROX_API_TOKEN
     - STACKROX_CENTRAL_HOST=$STACKROX_CENTRAL_HOST
-    - roxctl --insecure-skip-tls-verify image check -e $STACKROX_CENTRAL_HOST:443 --image=escape:1.0
+    - roxctl --insecure-skip-tls-verify image check -e $STACKROX_CENTRAL_HOST:443 --image=repo.example.com/namespace/escape:1.0
   tags:
     - docker-runner
   only:
