@@ -1,9 +1,9 @@
 stages:
   - build
-  - push
+  - tag-push
   - scan
  
-Build the image:
+📦Build the image:
   stage: build
   script:
     - "docker build -t escape:1.0 ."
@@ -12,8 +12,8 @@ Build the image:
   only:
     - container-scan
 
-Push image:
-  stage: push
+🔖Tag & Push image:
+  stage: tag-push
   script:
     - docker login -u $USER -p $TOKEN docker.io
     - docker tag escape:1.0 repo.example.com/namespace/escape:1.0
@@ -25,7 +25,7 @@ Push image:
     - container-scan
   allow_failure: true
 
-Scan the image:
+🔐Scan the image:
   image:
     name: registry.access.redhat.com/advanced-cluster-security/rhacs-roxctl-rhel8:3.74.1-1
     entrypoint: ["/bin/sh", "-c"] # override image entrypoint as default is /usr/bin/roxctl
